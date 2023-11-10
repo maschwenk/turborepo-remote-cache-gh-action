@@ -43,8 +43,9 @@ async function main() {
     READ_ONLY_MODE: readOnlyMode.toString(),
   };
   console.log({ env });
-  const subprocess = spawn("node", [resolve(__dirname, "../start_and_log")], {
+  const subprocess = spawn("node", [resolve(__dirname, "../server")], {
     detached: true,
+    stdio: "inherit",
     env,
   });
 

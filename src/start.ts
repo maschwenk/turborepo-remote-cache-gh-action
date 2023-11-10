@@ -10,7 +10,7 @@ import { resolve } from "path";
 import { waitUntilUsed } from "tcp-port-used";
 import { existsSync, mkdirSync } from "fs";
 import { logDir } from "./constants";
-import { host, storagePath, storageProvider, teamId, token } from "./inputs";
+import { host, readOnlyMode, storagePath, storageProvider, teamId, token } from "./inputs";
 import { getPort } from "./getPort";
 
 async function main() {
@@ -36,6 +36,7 @@ async function main() {
       TURBO_TOKEN: token,
       STORAGE_PROVIDER: storageProvider,
       STORAGE_PATH: storagePath,
+      READ_ONLY_MODE: readOnlyMode.toString(),
     },
   });
 

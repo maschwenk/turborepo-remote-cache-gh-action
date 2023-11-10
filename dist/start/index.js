@@ -5970,6 +5970,7 @@ const teamId = (0,core.getInput)("team-id", { trimWhitespace: true });
 const token = (0,external_crypto_.randomBytes)(24).toString("hex");
 const host = (0,core.getInput)("host", { trimWhitespace: true });
 const port = parseInt((0,core.getInput)("port", { trimWhitespace: true }));
+const readOnlyMode = (0,core.getInput)("read-only-mode", { trimWhitespace: true }).toLowerCase() === "true";
 
 ;// CONCATENATED MODULE: external "node:net"
 const external_node_net_namespaceObject = require("node:net");
@@ -6199,6 +6200,7 @@ async function main() {
             TURBO_TOKEN: token,
             STORAGE_PROVIDER: storageProvider,
             STORAGE_PATH: storagePath,
+            READ_ONLY_MODE: readOnlyMode.toString(),
         },
     });
     const pid = subprocess.pid?.toString();

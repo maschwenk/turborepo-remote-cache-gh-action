@@ -11,6 +11,9 @@ inputs:
   storage-path:
     description: "The name of s3, google-cloud-storage, or azure-blob-storage bucket."
     required: false
+  read-only-mode:
+    description: "Whether or not to run in read only mode"
+    required: true
   team-id:
     description: "Sets the TURBO_TEAM env variable, which controls the directory where cache entries will be saved."
     required: false

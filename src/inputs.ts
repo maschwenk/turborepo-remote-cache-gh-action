@@ -13,3 +13,5 @@ export const teamId = getInput("team-id", { trimWhitespace: true });
 export const token = randomBytes(24).toString("hex");
 export const host = getInput("host", { trimWhitespace: true });
 export const port = parseInt(getInput("port", { trimWhitespace: true }));
+export const readOnlyMode =
+  getInput("read-only-mode", { trimWhitespace: true }).toLowerCase() === "true";

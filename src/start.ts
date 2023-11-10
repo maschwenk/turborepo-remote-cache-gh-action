@@ -52,7 +52,6 @@ async function main() {
   const pid = subprocess.pid?.toString();
   subprocess.unref();
 
-  try {
     debug(`Waiting for port ${port} to be used...`);
     await waitUntilUsed(port, 250, 5000);
 
@@ -60,9 +59,6 @@ async function main() {
     info(`  PID: ${pid}`);
     info(`  Listening on port: ${port}`);
     saveState("pid", subprocess.pid?.toString());
-  } catch (e) {
-    throw new Error(`Turbo server failed to start on port: ${port}`);
-  }
 }
 
 main().catch(setFailed);

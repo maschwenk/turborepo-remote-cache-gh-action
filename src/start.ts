@@ -10,7 +10,14 @@ import { resolve } from "path";
 import { waitUntilUsed } from "tcp-port-used";
 import { existsSync, mkdirSync } from "fs";
 import { logDir } from "./constants";
-import { host, readOnlyMode, storagePath, storageProvider, teamId, token } from "./inputs";
+import {
+  host,
+  readOnlyMode,
+  storagePath,
+  storageProvider,
+  teamId,
+  token,
+} from "./inputs";
 import { getPort } from "./getPort";
 
 async function main() {
@@ -27,17 +34,18 @@ async function main() {
   exportVariable("TURBO_TEAM", teamId);
 
   debug(`Starting Turbo Cache Server...`);
+  const env = {
+    ...process.env,
+    PORT: port.toString(),
+    TURBO_TOKEN: token,
+    STORAGE_PROVIDER: storageProvider,
+    STORAGE_PATH: storagePath,
+    READ_ONLY_MODE: readOnlyMode.toString(),
+  };
+  console.log({ env });
   const subprocess = spawn("node", [resolve(__dirname, "../start_and_log")], {
     detached: true,
-    stdio: "ignore",
-    env: {
-      ...process.env,
-      PORT: port.toString(),
-      TURBO_TOKEN: token,
-      STORAGE_PROVIDER: storageProvider,
-      STORAGE_PATH: storagePath,
-      READ_ONLY_MODE: readOnlyMode.toString(),
-    },
+    env,
   });
 
   const pid = subprocess.pid?.toString();

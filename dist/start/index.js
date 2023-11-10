@@ -6191,17 +6191,18 @@ async function main() {
     (0,core.exportVariable)("TURBO_TOKEN", token);
     (0,core.exportVariable)("TURBO_TEAM", teamId);
     (0,core.debug)(`Starting Turbo Cache Server...`);
+    const env = {
+        ...process.env,
+        PORT: port.toString(),
+        TURBO_TOKEN: token,
+        STORAGE_PROVIDER: storageProvider,
+        STORAGE_PATH: storagePath,
+        READ_ONLY_MODE: readOnlyMode.toString(),
+    };
+    console.log({ env });
     const subprocess = (0,external_child_process_namespaceObject.spawn)("node", [(0,external_path_.resolve)(__dirname, "../start_and_log")], {
         detached: true,
-        stdio: "ignore",
-        env: {
-            ...process.env,
-            PORT: port.toString(),
-            TURBO_TOKEN: token,
-            STORAGE_PROVIDER: storageProvider,
-            STORAGE_PATH: storagePath,
-            READ_ONLY_MODE: readOnlyMode.toString(),
-        },
+        env,
     });
     const pid = subprocess.pid?.toString();
     subprocess.unref();

@@ -40,7 +40,7 @@ async function main() {
   process.env.STORAGE_PATH = storagePath;
   process.env.READ_ONLY_MODE = readOnlyMode.toString();
 
-  require("server");
+  require("./server");
 }
 
 main().catch(setFailed);

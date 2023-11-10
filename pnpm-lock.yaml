@@ -55,8 +55,8 @@ devDependencies:
     specifier: ^10.9.1
     version: 10.9.1(@types/node@18.13.0)(typescript@4.9.5)
   turborepo-remote-cache:
-    specifier: maschwenk/turborepo-remote-cache#mfs-read-only-mode
-    version: github.com/maschwenk/turborepo-remote-cache/664159f669b00bd74d85fcefa8c77e3fcf37a5b8
+    specifier: maschwenk/turborepo-remote-cache#mfs-read-only-mode-testing
+    version: github.com/maschwenk/turborepo-remote-cache/644213f2308b0468f3f2842359ac0874f3182f6e
   typescript:
     specifier: ^4.9.5
     version: 4.9.5
@@ -3182,8 +3182,8 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  github.com/maschwenk/turborepo-remote-cache/664159f669b00bd74d85fcefa8c77e3fcf37a5b8:
-    resolution: {tarball: https://codeload.github.com/maschwenk/turborepo-remote-cache/tar.gz/664159f669b00bd74d85fcefa8c77e3fcf37a5b8}
+  github.com/maschwenk/turborepo-remote-cache/644213f2308b0468f3f2842359ac0874f3182f6e:
+    resolution: {tarball: https://codeload.github.com/maschwenk/turborepo-remote-cache/tar.gz/644213f2308b0468f3f2842359ac0874f3182f6e}
     name: turborepo-remote-cache
     version: 2.0.4
     engines: {node: '>=18.0.0'}

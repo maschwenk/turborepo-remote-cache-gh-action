@@ -7,6 +7,7 @@
   "scripts": {
     "lint": "eslint src/**/*",
     "clean": "rimraf dist",
+    "prebuild": "cd node_modules/turborepo-remote-cache && (pnpm i || echo true) && pnpm exec -- tsc -p ./tsconfig.json",
     "build": "npm-run-all clean --parallel build:*",
     "build:server": "ncc build src/server.ts -o dist/server",
     "build:start": "ncc build src/start.ts -o dist/start",

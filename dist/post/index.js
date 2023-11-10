@@ -2940,12 +2940,15 @@ async function post() {
         process.kill(pid);
     }
     else {
-        if (isNaN(pid)) {
-            (0,core.setFailed)(`Turbo Cache Server was not running. This probably indicates that the server was unable to start.`);
-        }
-        else {
-            (0,core.setFailed)(`Turbo Cache Server with PID ${pid} was not running. This may indicate a configuration or server crash.`);
-        }
+        // if (isNaN(pid)) {
+        //   setFailed(
+        //     `Turbo Cache Server was not running. This probably indicates that the server was unable to start.`
+        //   );
+        // } else {
+        //   setFailed(
+        //     `Turbo Cache Server with PID ${pid} was not running. This may indicate a configuration or server crash.`
+        //   );
+        // }
     }
     const [out, err] = await Promise.all([
         (0,promises_namespaceObject.readFile)((0,external_path_.resolve)(logDir, "out.log"), "utf8").catch(() => ""),

@@ -3124,7 +3124,6 @@ async function main() {
     };
     console.log({ env });
     const subprocess = (0,external_child_process_namespaceObject.spawn)("node", [(0,external_path_.resolve)(__dirname, "../server")], {
-        detached: true,
         stdio: "inherit",
         env,
     });

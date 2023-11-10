@@ -44,7 +44,6 @@ async function main() {
   };
   console.log({ env });
   const subprocess = spawn("node", [resolve(__dirname, "../server")], {
-    detached: true,
     stdio: "inherit",
     env,
   });

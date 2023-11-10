@@ -50,15 +50,13 @@ async function main() {
   });
 
   const pid = subprocess.pid?.toString();
-  subprocess.unref();
+  // subprocess.unref();
 
-    debug(`Waiting for port ${port} to be used...`);
-    await waitUntilUsed(port, 250, 5000);
-
-    info("Spawned Turbo Cache Server:");
-    info(`  PID: ${pid}`);
-    info(`  Listening on port: ${port}`);
-    saveState("pid", subprocess.pid?.toString());
+  debug(`Waiting for port ${port} to be used...`);
+  info("Spawned Turbo Cache Server:");
+  info(`  PID: ${pid}`);
+  info(`  Listening on port: ${port}`);
+  saveState("pid", subprocess.pid?.toString());
 }
 
 main().catch(setFailed);

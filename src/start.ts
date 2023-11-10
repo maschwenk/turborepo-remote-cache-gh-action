@@ -10,14 +10,7 @@ import { resolve } from "path";
 import { waitUntilUsed } from "tcp-port-used";
 import { existsSync, mkdirSync } from "fs";
 import { logDir } from "./constants";
-import {
-  host,
-  readOnlyMode,
-  storagePath,
-  storageProvider,
-  teamId,
-  token,
-} from "./inputs";
+import { host, readOnlyMode, storagePath, storageProvider, teamId, token } from "./inputs";
 import { getPort } from "./getPort";
 
 async function main() {
@@ -34,13 +27,33 @@ async function main() {
   exportVariable("TURBO_TEAM", teamId);
 
   debug(`Starting Turbo Cache Server...`);
-  process.env.PORT = port.toString();
-  process.env.TURBO_TOKEN = token;
-  process.env.STORAGE_PROVIDER = storageProvider;
-  process.env.STORAGE_PATH = storagePath;
-  process.env.READ_ONLY_MODE = readOnlyMode.toString();
+  const subprocess = spawn("node", [resolve(__dirname, "../start_and_log")], {
+    detached: true,
+    stdio: "ignore",
+    env: {
+      ...process.env,
+      PORT: port.toString(),
+      TURBO_TOKEN: token,
+      STORAGE_PROVIDER: storageProvider,
+      STORAGE_PATH: storagePath,
+      READ_ONLY_MODE: readOnlyMode.toString(),
+    },
+  });
 
-  require("./server");
+  const pid = subprocess.pid?.toString();
+  subprocess.unref();
+
+  try {
+    debug(`Waiting for port ${port} to be used...`);
+    await waitUntilUsed(port, 250, 5000);
+
+    info("Spawned Turbo Cache Server:");
+    info(`  PID: ${pid}`);
+    info(`  Listening on port: ${port}`);
+    saveState("pid", subprocess.pid?.toString());
+  } catch (e) {
+    throw new Error(`Turbo server failed to start on port: ${port}`);
+  }
 }
 
 main().catch(setFailed);

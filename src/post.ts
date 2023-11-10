@@ -12,15 +12,17 @@ async function post() {
     info(`Stopping Turbo Cache Server with PID ${pid}`);
     process.kill(pid);
   } else {
-    // if (isNaN(pid)) {
-    //   setFailed(
-    //     `Turbo Cache Server was not running. This probably indicates that the server was unable to start.`
-    //   );
-    // } else {
-    // }
+    if (isNaN(pid)) {
+      setFailed(
+        `Turbo Cache Server was not running. This probably indicates that the server was unable to start.`
+      );
+    } else {
+      setFailed(
+        `Turbo Cache Server with PID ${pid} was not running. This may indicate a configuration or server crash.`
+      );
+    }
   }
 
-  debug("in here");
   const [out, err] = await Promise.all([
     readFile(resolve(logDir, "out.log"), "utf8").catch(() => ""),
     readFile(resolve(logDir, "err.log"), "utf8").catch(() => ""),
@@ -33,11 +35,6 @@ async function post() {
     debug("Server logged the following error while running:");
     debug(indent(err, 2));
   }
-
-  setFailed(
-        `Turbo Cache Server with PID ${pid} was not running. This may indicate a configuration or server crash.`
-      );
-      
 }
 
 post().catch(setFailed);

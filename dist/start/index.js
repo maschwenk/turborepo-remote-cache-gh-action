@@ -2120,7 +2120,7 @@ var _version = _interopRequireDefault(__nccwpck_require__(609));
 
 var _validate = _interopRequireDefault(__nccwpck_require__(9));
 
-var _stringify = _interopRequireDefault(__nccwpck_require__(993));
+var _stringify = _interopRequireDefault(__nccwpck_require__(729));
 
 var _parse = _interopRequireDefault(__nccwpck_require__(951));
 
@@ -2301,7 +2301,7 @@ exports["default"] = _default;
 
 /***/ }),
 
-/***/ 993:
+/***/ 729:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 "use strict";
@@ -2360,7 +2360,7 @@ exports["default"] = void 0;
 
 var _rng = _interopRequireDefault(__nccwpck_require__(548));
 
-var _stringify = _interopRequireDefault(__nccwpck_require__(993));
+var _stringify = _interopRequireDefault(__nccwpck_require__(729));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2496,7 +2496,7 @@ Object.defineProperty(exports, "__esModule", ({
 exports["default"] = _default;
 exports.URL = exports.DNS = void 0;
 
-var _stringify = _interopRequireDefault(__nccwpck_require__(993));
+var _stringify = _interopRequireDefault(__nccwpck_require__(729));
 
 var _parse = _interopRequireDefault(__nccwpck_require__(951));
 
@@ -2582,7 +2582,7 @@ exports["default"] = void 0;
 
 var _rng = _interopRequireDefault(__nccwpck_require__(548));
 
-var _stringify = _interopRequireDefault(__nccwpck_require__(993));
+var _stringify = _interopRequireDefault(__nccwpck_require__(729));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2685,6 +2685,14 @@ function version(uuid) {
 
 var _default = version;
 exports["default"] = _default;
+
+/***/ }),
+
+/***/ 19:
+/***/ ((module) => {
+
+module.exports = eval("require")("server");
+
 
 /***/ }),
 
@@ -2861,14 +2869,12 @@ var __webpack_exports__ = {};
 // ESM COMPAT FLAG
 __nccwpck_require__.r(__webpack_exports__);
 
-;// CONCATENATED MODULE: external "child_process"
-const external_child_process_namespaceObject = require("child_process");
 // EXTERNAL MODULE: ./node_modules/.pnpm/@actions+core@1.10.0/node_modules/@actions/core/lib/core.js
 var core = __nccwpck_require__(733);
-// EXTERNAL MODULE: external "path"
-var external_path_ = __nccwpck_require__(17);
 // EXTERNAL MODULE: external "fs"
 var external_fs_ = __nccwpck_require__(147);
+// EXTERNAL MODULE: external "path"
+var external_path_ = __nccwpck_require__(17);
 // EXTERNAL MODULE: external "os"
 var external_os_ = __nccwpck_require__(37);
 var external_os_default = /*#__PURE__*/__nccwpck_require__.n(external_os_);
@@ -3101,8 +3107,6 @@ async function getPort() {
 
 
 
-
-
 async function main() {
     if (!(0,external_fs_.existsSync)(logDir)) {
         (0,core.debug)(`Creating log directory: "${logDir}"...`);
@@ -3114,26 +3118,12 @@ async function main() {
     (0,core.exportVariable)("TURBO_TOKEN", token);
     (0,core.exportVariable)("TURBO_TEAM", teamId);
     (0,core.debug)(`Starting Turbo Cache Server...`);
-    const env = {
-        ...process.env,
-        PORT: port.toString(),
-        TURBO_TOKEN: token,
-        STORAGE_PROVIDER: storageProvider,
-        STORAGE_PATH: storagePath,
-        READ_ONLY_MODE: readOnlyMode.toString(),
-    };
-    console.log({ env });
-    const subprocess = (0,external_child_process_namespaceObject.spawn)("node", [(0,external_path_.resolve)(__dirname, "../server")], {
-        stdio: "inherit",
-        env,
-    });
-    const pid = subprocess.pid?.toString();
-    // subprocess.unref();
-    (0,core.debug)(`Waiting for port ${port} to be used...`);
-    (0,core.info)("Spawned Turbo Cache Server:");
-    (0,core.info)(`  PID: ${pid}`);
-    (0,core.info)(`  Listening on port: ${port}`);
-    (0,core.saveState)("pid", subprocess.pid?.toString());
+    process.env.PORT = port.toString();
+    process.env.TURBO_TOKEN = token;
+    process.env.STORAGE_PROVIDER = storageProvider;
+    process.env.STORAGE_PATH = storagePath;
+    process.env.READ_ONLY_MODE = readOnlyMode.toString();
+    __nccwpck_require__(19);
 }
 main().catch(core.setFailed);
 

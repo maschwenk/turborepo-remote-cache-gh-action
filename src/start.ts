@@ -34,28 +34,13 @@ async function main() {
   exportVariable("TURBO_TEAM", teamId);
 
   debug(`Starting Turbo Cache Server...`);
-  const env = {
-    ...process.env,
-    PORT: port.toString(),
-    TURBO_TOKEN: token,
-    STORAGE_PROVIDER: storageProvider,
-    STORAGE_PATH: storagePath,
-    READ_ONLY_MODE: readOnlyMode.toString(),
-  };
-  console.log({ env });
-  const subprocess = spawn("node", [resolve(__dirname, "../server")], {
-    stdio: "inherit",
-    env,
-  });
+  process.env.PORT = port.toString();
+  process.env.TURBO_TOKEN = token;
+  process.env.STORAGE_PROVIDER = storageProvider;
+  process.env.STORAGE_PATH = storagePath;
+  process.env.READ_ONLY_MODE = readOnlyMode.toString();
 
-  const pid = subprocess.pid?.toString();
-  // subprocess.unref();
-
-  debug(`Waiting for port ${port} to be used...`);
-  info("Spawned Turbo Cache Server:");
-  info(`  PID: ${pid}`);
-  info(`  Listening on port: ${port}`);
-  saveState("pid", subprocess.pid?.toString());
+  require("server");
 }
 
 main().catch(setFailed);

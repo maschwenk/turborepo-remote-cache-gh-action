@@ -2944,7 +2944,7 @@ async function post() {
             (0,core.setFailed)(`Turbo Cache Server was not running. This probably indicates that the server was unable to start.`);
         }
         else {
-            (0,core.setFailed)(`Turbo Cache Server with PID ${pid} was not running. This may indicate a configuration or server crash.`);
+            (0,core.info)(`Turbo Cache Server with PID ${pid} was not running. This may indicate a configuration or server crash.`);
         }
     }
     const [out, err] = await Promise.all([
